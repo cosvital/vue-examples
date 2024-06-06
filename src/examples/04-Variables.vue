@@ -11,5 +11,5 @@ export default {
 </script>
 
 <template>
-  <p>My name is: {{ name }} {{ lastName }} and I'm {{ age }} years old.</p>
+  <p>My name is: {{ name.toUpperCase() }} {{ lastName }} and I'm {{ age }} years old.</p>
 </template>
