@@ -2,47 +2,65 @@
 export default {
   data() {
     return {
-      myId: 'test-id',
-      titleClass: 'title',
-      isActive: true,
-      hasError: true,
-      errorClass: 'error',
-      fontSize: '30px',
-      color: 'green'
+      title: 'Matriz de Colores en Vue',
+      colors: ['red', 'blue', 'green', 'yellow', 'purple', 'orange', 'pink'],
+      textColor: 'black'
     }
   },
   methods: {
-    toggleActive() {
-      this.isActive = !this.isActive
+    changeTextColor(color) {
+      this.textColor = color
     }
   }
 }
 </script>
 
 <template>
-  <div class="flex flex-col gap-5">
-    <div v-bind:id="myId">This div has a dynamic id: {{ myId }}, inspect it!</div>
-    <h1 :class="titleClass">This is a title with a dynamic class</h1>
-    <p :class="{ 'active-title': isActive }" @click="toggleActive">
-      This is a text that changes the color if it's active. Click it to toggle it!
-    </p>
-    <h1 :class="[hasError ? errorClass : '', titleClass]">This is a title with an error state</h1>
-    <h1 :style="{ color: color, fontSize: fontSize }">
-      This is a title using inline dynamic styles
-    </h1>
+  <div id="app">
+    <h1>{{ title }}</h1>
+
+    <!-- Texto cuyo color cambiará -->
+    <p :style="{ color: textColor }">Este texto cambiará de color</p>
+
+    <!-- Matriz de colores -->
+    <div class="color-grid">
+      <div
+        v-for="(color, index) in colors"
+        :key="index"
+        :style="{ backgroundColor: color }"
+        class="color-box"
+        @click="changeTextColor(color)"
+      ></div>
+      <!--
+v-for="(color, index) in colors": Un bucle que itera sobre cada color en la matriz colors.
+:key="index": Una clave única para cada elemento del bucle, necesaria para que Vue pueda rastrear los cambios de manera eficiente.
+:style="{ backgroundColor: color }": Vincula dinámicamente el estilo de fondo al valor de color.
+class="color-box": Aplica una clase CSS color-box a cada div.
+@click="changeTextColor(color)": Vincula un evento de clic que llama al método changeTextColor y pasa el color clicado como argumento.
+Script-->
+    </div>
   </div>
 </template>
 
 <style>
-.title {
-  font-size: 22px;
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
 }
-.active-title {
-  color: green;
+
+.color-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
 }
-.title {
-}
-.error {
-  color: red;
+
+.color-box {
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+  cursor: pointer;
 }
 </style>
